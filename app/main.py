@@ -47,12 +47,13 @@ def format_input(data: HeartInput):
 
 @app.post("/predict/logistic")
 def predict_logistic(data: HeartInput):
-    values = [[*data.dict().values()]]
+    values = format_input(data)
     prediction = logistic_model.predict(values)[0]
     return {"model": "Logistic Regression", "prediction": int(prediction)}
 
+
 @app.post("/predict/tree")
 def predict_tree(data: HeartInput):
-    values = [[*data.dict().values()]]
+    values = format_input(data)
     prediction = decision_tree_model.predict(values)[0]
     return {"model": "Decision Tree", "prediction": int(prediction)}
